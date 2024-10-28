@@ -134,6 +134,8 @@ static void DoraemonSignalHandler(int signal, siginfo_t* info, void* context) {
     // 保存崩溃日志到沙盒cache目录
     [DoraemonCrashTool saveCrashLog:[NSString stringWithString:mstr] fileName:@"Crash(Signal)"];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"kCrashLogNoti" object: [NSString stringWithString:mstr]];
+    
     DoraemonClearSignalRigister();
     
     // 调用之前崩溃的回调函数
