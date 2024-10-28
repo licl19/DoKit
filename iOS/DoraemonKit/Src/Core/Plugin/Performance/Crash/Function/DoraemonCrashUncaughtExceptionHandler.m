@@ -36,6 +36,8 @@ static void DoraemonUncaughtExceptionHandler(NSException * exception) {
     
     NSString * exceptionInfo = [NSString stringWithFormat:@"========uncaughtException异常错误报告========\nname:%@\nreason:\n%@\ncallStackSymbols:\n%@", name, reason, [stackArray componentsJoinedByString:@"\n"]];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"kCrashLogNoti" object:exceptionInfo];
+    
     // 保存崩溃日志到沙盒cache目录
     [DoraemonCrashTool saveCrashLog:exceptionInfo fileName:@"Crash(Uncaught)"];
     
